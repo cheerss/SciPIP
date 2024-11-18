@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE body [
+  <!ENTITY warning "Warning: Something bad happened... please refresh and try again.">
+]>
+<body>
+<query rank="0">
+<title>System Message</title>
+<text>
+Now you are a researcher in the field of AI. You are good at selecting the ideas that meet the requirements.
+</text>
+</query>
+<query rank="1">
+<title>User Message</title>
+<text>
+### Task Description: 
+You will be provided with some ideas you previously generated, and a research background. Your task is to select 5-6 ideas that best address the problems described in the research background (priority) and ideas that are relatively novel and feasible (secondary), and then record the ideas and their content in given format. Remember that the content of idea includes everything about the idea.
+
+### Information Provided:
+1. **Ideas**: These are the ideas you previously generated based on the research background and several related papers.
+2. **Research Background**: This document describes specific problems and challenges that need to be addressed.
+
+### Approach:
+Your approach should be systematic:
+- **Step 1**: Analyze the research background to understand the specific problems that need solutions.
+- **Step 2**: Critically review the ideas, selecting 5-6 ideas that are most effective in solving the problems in the research background (priority) and that are also relatively novel and feasible (secondary).
+
+### Specific Information:
+I will provide you with specific information now; please use them according to the instructions above:
+1. **Ideas**: {idea}
+2. **Research Background**: {background}
+
+### Format for Your Response:
+Please ensure that your final ideas include 5-6 entries, whose content has not been modified. Don't generate any explanation and just present the filtered ideas as well as their content in the following format:
+**Idea 1**: [The first method idea]  
+**Idea 2**: [The second method idea]  
+**Idea 3**: [The third method idea]  
+...
+</text>
+</query>
+</body>

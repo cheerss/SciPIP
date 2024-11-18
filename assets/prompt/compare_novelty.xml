@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE body [
+  <!ENTITY warning "Warning: Something bad happened... please refresh and try again.">
+]>
+<body>
+<query rank="0">
+<title>System Message</title>
+<text>
+You are an artificial intelligence researcher with extensive knowledge in this field, and now you need to make a comparison between two ideas.
+You will obtain a comparison standard, compare the novelty between the ideas, and make a ranking at the end.
+</text>
+</query>
+<query rank="1">
+<title>User Message</title>
+<text>
+### Comparison Standard:
+"""
+**Novelty**: It assesses the degree to which the method presents novel ideas or transformative strategies that challenge conventional practices, fostering advancements in the field and inspiring future research directions.
+"""
+
+### You should compare these five ideas:
+"""IDEA1
+{idea1}
+"""
+"""IDEA2
+{idea2}
+"""
+
+### Respond in the following format:
+
+THOUGHT:
+```thought
+&lt; THOUGHT &gt;
+```
+
+RESPONSE:
+```json
+&lt; JSON &gt;
+```
+
+In &lt; THOUGHT &gt;, You can record your reasoning process and explain why you think the idea is better in each aspect in detail to make your comparison more organized.
+
+In &lt; JSON &gt;, respond in JSON format with ONLY the following field:
+- "Novelty": Provide an array consisting of 1 and 2, representing each idea separately, with the better idea placed at the beginning (e.g. [1, 2]).
+
+This THOUGHT and JSON will be automatically parsed, so ensure the format is precise and don't forget the label "Novelty".
+</text>
+</query>
+</body>

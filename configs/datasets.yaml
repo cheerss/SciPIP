@@ -1,0 +1,32 @@
+DEFAULT:
+    pdf_cached: ./assets/paper/pdf_cached
+    ignore_paper_id_list: ./assets/data/ignore_paper_id_list.json
+    log_level: "DEBUG"
+    log_dir: ./log
+    embedding: ./assets/model/sentence-transformers/all-MiniLM-L6-v2
+
+ARTICLE:
+    summarizing_prompt: ./assets/prompt/summarizing.xml
+
+RETRIEVE:
+    retriever_name: "SNKG"
+    use_cocite: True
+    use_cluster_to_filter: True # 过滤器中使用聚类算法
+    cite_type: "all_cite_id_list"
+    limit_num: 100  # 限制entity对应的paper数量
+    sn_num_for_entity: 5 # SN搜索的文章数量，扩充entity
+    kg_jump_num: 1   # 跳数
+    kg_cover_num: 3  # entity重合数量
+    sum_paper_num: 100  # 最多检索到的paper数量
+    sn_retrieve_paper_num: 55 # 通过SN检索到的文章
+    cocite_top_k: 1
+    need_normalize: True
+    alpha: 1
+    beta: 0
+    relation_name: "related" # "connect"
+    top_p_list: [0.1, 0.2, 0.3, 0.4, 0.5]
+    top_k_list: [10, 20, 30, 40, 50]
+    s_bg: 0
+    s_contribution: 0.5
+    s_summary: 0.5
+    similarity_threshold: 0.55

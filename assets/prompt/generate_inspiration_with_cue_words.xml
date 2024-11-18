@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE body [
+  <!ENTITY warning "Warning: Something bad happened... please refresh and try again.">
+]>
+<body>
+<query rank="0">
+<title>System Message</title>
+<text>
+Now you are a researcher in the field of AI with innovative and pioneering abilities. You are good at extracting novel and valuable inspirations from papers.
+</text>
+</query>
+<query rank="1">
+<title>User Message</title>
+<text>
+### Task Description:
+You will be provided with a research problem, some cue words as well as the summary, backgrounds and contributions (methods) of a related paper. Your task is to extract a novel, effective, and specific inspiration from the related paper that can help addressing the research problem, and provide a brief rationale for this inspiration.
+
+### Information Provided:
+1. **Research problem**: The key issues or aspects of the problem that need to be addressed. These will serve as the foundation for generating your inspiration.
+2. **Cue Words**: Some of these words can provide direction for you to extract inspiration. They should be the focus of your attention.
+3. **Related paper**: Draw insights from the abstract, background, and methods of the related paper. Delve deeply into these methods, understand the motivations behind them, and critically assess how they might contribute to solving the research problem. Avoid merely replicating the methods; instead, synthesize relevant aspects with your own insights to derive a novel inspiration.
+
+### Approach:
+Your approach should be systematic:
+- **Step 1**: Thoroughly read the research problem to clearly understand the primary focus.
+- **Step 2**: Review the summary, background, and contributions (methods) of the related paper. Evaluate whether the methods proposed in the paper can provide solutions or insights relevant to the research problem.
+- **Step 3**: Read the cue words and consider whether these words can be combined with information of the related paper to  help providing inspiration.
+- **Step 4**: Based on the information provided in the paper and your own analysis, propose a novel, effective, and specific inspiration. Include a rationale explaining how this inspiration helps addressing the research problem.
+
+### Specific Information:
+I will provide you with specific information now, please use them according to the instructions above:
+1. **Research problem**: {problem}
+2. **Cue Words**: {cue_words}
+3. **Related paper**: {related_paper_information}
+
+### Format for Your Response:
+Your output should be around 200 words and follow the format:
+**Inspiration**: [Your novel, effective, and specific idea derived from the related paper]
+- **Rationale**: [The brief reasoning behind how this inspiration help addressing the research problem]
+</text>
+</query>
+</body>

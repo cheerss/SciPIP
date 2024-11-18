@@ -1,0 +1,171 @@
+{
+    "Make AI research easy": {
+        "en": "-",
+        "zh": "让AI研究变得简单"
+    },
+    "SciPIP will generate ideas in one click. The generation pipeline is the same as step-by-step generation, but you are free from caring about intermediate outputs.": {
+        "en": "-",
+        "zh": "SciPIP将一键生成创意，用户无需关心中间输出，创意生成使用的算法与逐步生成相同。"
+    },
+    "1. Input Background": {
+        "en": "-",
+        "zh": "用户输入背景"
+    },
+    "2. Brainstorming": {
+        "en": "-",
+        "zh": "头脑风暴"
+    },
+    "3. Extracting Entities": {
+        "en": "-",
+        "zh": "提取关键词"
+    },
+    "4. Retrieving Related Works": {
+        "en": "-",
+        "zh": "检索相关工作"
+    },
+    "5. Generating Initial Ideas": {
+        "en": "-",
+        "zh": "生成初始创意"
+    },
+    "6. Generating Final Ideas": {
+        "en": "-",
+        "zh": "生成最终创意"
+    },
+    "Pipeline": {
+        "en": "-",
+        "zh": "生成流程"
+    },
+    "Supported Fields": {
+        "en": "-",
+        "zh": "支持的领域"
+    },
+    "The supported fields are temporarily limited because we only collect literature from ICML, ICLR, NeurIPS, ACL, and EMNLP. Support for other fields are in progress.": {
+        "en": "-",
+        "zh": "由于当前我们构建的文献库中仅包含过去10年来自ICML、ICLR、NeurIPS、ACL和EMNLP的论文，因此创意生成支持的领域暂时有限"
+    },
+    "Natural Language Processing (NLP)": {
+        "en": "-",
+        "zh": "自然语言处理"
+    },
+    "Computer Vision (CV)": {
+        "en": "-",
+        "zh": "计算机视觉"
+    },
+    "[Partial] Multimodal": {
+        "en": "-",
+        "zh": "【部分支持】多模态"
+    },
+    "Incoming Other Fields": {
+        "en": "-",
+        "zh": "其他领域"
+    },
+    "Help Us To Improve": {
+        "en": "-",
+        "zh": "帮助我们改进"
+    },
+    "💧 One-click Generation": {
+        "en": "-",
+        "zh": "💧 一键生成创意"
+    },
+    "Check Brainstorms": {
+        "en": "-",
+        "zh": "查看头脑风暴结果"
+    },
+    "Check Entities": {
+        "en": "-",
+        "zh": "查看实体提取结果"
+    },
+    "Check Retrieved Papers": {
+        "en": "-",
+        "zh": "查看文献检索结果"
+    },
+    "Reset Chat": {
+        "en": "-",
+        "zh": "重置对话"
+    },
+
+    "SciPIP will generate ideas step by step. The generation pipeline is the same as one-click generation, while you can improve each part manually after SciPIP providing the manuscript.": {
+        "en": "-",
+        "zh": "SciPIP将会逐步生成创意，生成使用的算法与一键生成相同，但是用户可以在SciPIP给出中间过程的初稿后修改其中内容。"
+    },
+    "💦 Step-by-step Generation": {
+        "en": "-",
+        "zh": "💦 逐步生成创意"
+    },
+    "🐳 Background": {
+        "en": "-",
+        "zh": "🐳 背景"
+    },
+    "Submit": {
+        "en": "-",
+        "zh": "提交"
+    },
+    "Example": {
+        "en": "-",
+        "zh": "例"
+    },
+    "👻 Brainstorms": {
+        "en": "-",
+        "zh": "👻 头脑风暴"
+    },
+    "🐱 Extracted Entities": {
+        "en": "-",
+        "zh": "🐱 提取实体"
+    },
+    "📖 Retrieved Related Works": {
+        "en": "-",
+        "zh": "📖 检索相关文献"
+    },
+    "😼 Generated Initial Ideas": {
+        "en": "-",
+        "zh": "😼 生成初始创意"
+    },
+    "😸 Generated Final Ideas": {
+        "en": "-",
+        "zh": "😸 生成最终创意"
+    },
+    "Brainstorming...": {
+        "en": "-",
+        "zh": "头脑风暴……"
+    },
+    "Extracting entities...": {
+        "en": "-",
+        "zh": "提取实体……"
+    },
+    "Retrieving related works...": {
+        "en": "-",
+        "zh": "检索文献……"
+    },
+    "Generating initial ideas...": {
+        "en": "-",
+        "zh": "生成初步创意……"
+    },
+    "Generating final ideas...": {
+        "en": "-",
+        "zh": "生成最终创意……"
+    },
+    "Please input the brainstorms on the left.": {
+        "en": "-",
+        "zh": "请在左侧修改头脑风暴的内容"
+    },
+    "Please input the entities on the left.": {
+        "en": "-",
+        "zh": "请在左侧修改关键词"
+    },
+    "Please input the related works on the left.": {
+        "en": "-",
+        "zh": "请在左侧修改参考文献"
+    },
+    "Please input the initial ideas on the left.": {
+        "en": "-",
+        "zh": "请在左侧修改初始创意"
+    },
+    "Please input the final ideas on the left.": {
+        "en": "-",
+        "zh": "请在左侧修改最终创意"
+    },
+    "🏠️ Homepage": {
+        "en": "-",
+        "zh": "🏠️ 首页"
+    }
+}

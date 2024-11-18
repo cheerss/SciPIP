@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE body [
+  <!ENTITY warning "Warning: Something bad happened... please refresh and try again.">
+]>
+<body>
+<query rank="0">
+<title>User Message</title>
+<text>
+### Task Description:
+I will give you some ideas, please standardize the output format of the ideas without changing any characters in their content. Note that the content of each idea includes everything about the idea。
+
+### Specific Information:
+I will provide you with specific information now, please use them according to the instructions above:
+**Ideas**:
+'''
+{idea}
+'''
+### Format for Your Response:
+Please ensure that your final answer is strictly presented in the following format:
+**1.**&lt; The content of the first idea &gt; . 
+**2.**&lt; The content of the second idea &gt; . 
+...
+</text>
+</query>
+</body>

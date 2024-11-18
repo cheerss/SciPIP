@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE body [
+  <!ENTITY warning "Warning: Something bad happened... please refresh and try again.">
+]>
+<body>
+<query rank="0">
+<title>User Message</title>
+<text>
+### Task Description:
+You will be provided with the abstract and a text extracted from a paper and three contributions of the paper. Your task is to filter, refine, and revise the content of the contributions through the text provided to you.
+
+### Information Provided:
+1. **Abstract**: It's the abstract directly extracted from the paper.
+2. **Contributions**: These are the contributions (methods) we have summarized based on the abstract and introduction of the paper.
+3. **Text**: It's the text directly extracted from the paper, containing the methodology of the paper.
+
+### Approach:
+Your approach should be systematic:
+- **Step 1**: Start by reading the abstract and contributions, to understand the main work of this paper.
+- **Step 2**: Then, read the text, to find information related to the contributions and ignore other information. If you think there is missing content in the contributions section, you can add one. On the contrary, if you think there is content duplication, merge or delete one. Please ensure that the final contributions have 2 to 4 entries.
+- **Step 3**: Finally, provide specific details for each contribution as detailed and comprehensive as possible based on the content in the text. If applicable, you may include formulas or algorithms to support the ideas.
+
+### Specific Information:
+I will provide you with specific information now, please use them according to the instructions above:
+1. **Abstract**: {abstract}
+2. **Contribution**: {contribution}
+3. **Text**: {text}
+
+### Format for Your Response:
+Your output should follow the format, and please note that your subject should not be 'the paper' but 'this method' or the specific method name:
+**Idea 1**: [The first method idea]
+- **Details**: [Details of the first idea]
+**Idea 2**: [The second method idea]
+- **Details**: [Details of the second idea]
+...
+</text>
+</query>
+</body>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE body [
+  <!ENTITY warning "Warning: Something bad happened... please refresh and try again.">
+]>
+<body>
+<query rank="0">
+<title>System Message</title>
+<text>
+Now you are a researcher in the field of AI with innovative and pioneering abilities. You are good at using innovative and original methods to solve cutting-edge problems in the field of AI.
+</text>
+</query>
+<query rank="1">
+<title>User Message</title>
+<text>
+### Task Description:
+You will be provided with a research problem, its rationales and some cue words, along with inspirations and their rationales extracted from related papers. Your task is to brainstorm some ideas that are clear, innovative, valid, and comprehensive to address the problem.
+
+### Information Provided:
+1. **Research problem &amp; Rationales**: The key issues or aspects of the problem that need to be addressed. These will form the foundation for generating your ideas.
+2. **Cue Words**: Some of these words can inspire or provide direction for you to generate ideas. You can try to think deeply in these directions and perspectives.
+3. **Inspirations**: Insights and ideas extracted from related papers that may provide valuable perspectives or techniques applicable to the research problem.
+
+### Approach:
+Your approach should be systematic:
+- **Step 1**: Thoroughly read and understand the research problem to identify your primary focus.
+- **Step 2**: Read the cue words and think about whether these words can inspire or provide direction for you to come up with ideas.
+- **Step 3**: Review the inspirations extracted from the related papers to gain a broader perspective and insights relevant to the research topic.
+- **Step 4**: Based on the provided information, propose some ideas that are clear, innovative, valid, and comprehensive.
+
+### Specific Information:
+I will provide you with specific information now, please use them according to the instructions above:
+1. **Research problem &amp; Rationales**: {problem}
+2. **Cue Words**: {cue_words}
+3. **Inspirations**: {inspirations_text}
+
+### Format for Your Response:
+Please ensure that your final ideas include about 10 entries, presented in the following format:
+**Idea 1**: [The first method idea]
+**Idea 2**: [The second method idea]
+**Idea 3**: [The third method idea]
+...
+</text>
+</query>
+</body>

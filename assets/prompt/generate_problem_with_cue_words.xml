@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE body [
+  <!ENTITY warning "Warning: Something bad happened... please refresh and try again.">
+]>
+<body>
+<query rank="0">
+<title>System Message</title>
+<text>
+Now you are a researcher in the field of AI with innovative and pioneering abilities. You are good at proposing novel and valuable questions based on research background.
+</text>
+</query>
+<query rank="1">
+<title>User Message</title>
+<text>
+### Task Description:
+You will receive a research background and some cue words along with summaries, backgrounds, and contributions (methods) of several related papers. Your task is to carefully analyze this information and propose a research problem that is original, clear, feasible, relevant, and significant to its field. Additionally, provide the rationales behind the proposed problem.
+
+### Information Provided:
+1. **Research Background**: This is your primary focus. The research problem you propose should be a direct reflection of this background.
+2. **Cue Words**: Some of these words can provide direction and ideas for you to ask questions. They should be the focus of your attention.
+3. **Related Papers**: These papers offer studies directly related to the primary research topic, providing additional insights and knowledge that will inform your proposed problem.
+
+### Approach:
+Your approach should be systematic:
+- **Step 1**: Begin by thoroughly understanding the core focus of the research background.
+- **Step 2**: Read the cue words and then determine the approximate direction of your problem.
+- **Step 3**: Review the summaries, backgrounds, and contributions (methods) of the related papers to gain broader insights into the primary research topic.
+- **Step 4**: Based on the provided information, propose a research problem that meets the criteria of being original, clear, feasible, relevant, and significant. Support your problem statement with clear rationales.
+
+### Specific information:
+I will provide you with specific information now, please use them according to the instructions above:
+1. **Research Background**: {background}
+2. **Cue Words**: {cue_words}
+3. **Related Papers**: {related_papers_information}
+
+### Format for Your Response:
+**Research Problem**: [your problem]
+- **Rationales**: [the rationale behind your problem]
+</text>
+</query>
+</body>

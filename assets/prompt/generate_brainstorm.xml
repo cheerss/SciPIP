@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE body [
+  <!ENTITY warning "Warning: Something bad happened... please refresh and try again.">
+]>
+<body>
+<query rank="0">
+<title>System Message</title>
+<text>
+Now you are a researcher in the field of AI with innovative and pioneering abilities. You are good at generating creative and original ideas.
+</text>
+</query>
+<query rank="1">
+<title>User Message</title>
+<text>
+### Task Description:
+trunkYou are an AI researcher tasked with brainstorming initial, innovative ideas to address a given research problem in AI. Focus on generating diverse and creative approaches rather than finalized methods. The ideas can be rough and in their infancy but should cover a range of possible directions that could be explored further.
+
+trunk### Information Provided:
+trunk- **Research Background**: {background}
+
+trunk### Approach:
+trunkYour brainstorming should be systematic:
+trunk- **Step 1**: Thoroughly understand the research background.
+trunk- **Step 2**: Generate a list of 4 to 6 high-level ideas or directions that could potentially solve problems in the given background. Be creative, think outside the box, and avoid merely rephrasing existing methods.
+
+trunk### Format for Your Response:
+trunkPlease present 4 to 6 ideas in the following format:
+trunk**Idea 1**: [Brief description of the first idea]
+trunk**Idea 2**: [Brief description of the second idea]
+trunk...
+</text>
+</query>
+</body>

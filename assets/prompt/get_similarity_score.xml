@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE body [
+  <!ENTITY warning "Warning: Something bad happened... please refresh and try again.">
+]>
+<body>
+<query rank="0">
+<title>User Message</title>
+<text>
+### Task Description:
+You will be provided with an idea you previously generated, and a reference idea. Your task is to determine the similarity between the generated idea and the reference idea and give a score from 0 to 5.
+
+### Information Provided:
+1. **Generated Idea**: This is the idea you previously generated based on research background and several related papers.
+2. **Reference Idea**: This is the idea we provide you with that you need to compare with the generated idea.
+
+### Approach:
+You should follow the following scoring criteria:
+- **0**: The generated idea and reference idea are completely unrelated with no discernible similarities.
+- **1**: The generated idea and reference idea have a vague connection, but differ significantly in their main concepts or approach.
+- **2**: The generated idea and reference idea share a general concept but differ in most key aspects such as methodology or application.
+- **3**: The generated idea and reference idea are similar in several areas, including general concept and some aspects of methodology, but differ in details or specific approaches.
+- **4**: The generated idea and reference idea are largely similar in concept, methodology, and approach, with only minor differences in specifics.
+- **5**: The generated idea and reference idea are nearly identical in all key aspects, including concept, methodology, and approach.
+
+### Specific Information:
+I will provide you with specific information now, please use them according to the instructions above:
+1. **Generated Idea**: {idea}
+2. **Reference Idea**: {reference_idea}
+
+### Format for Your Response:
+Your answer can only have one number (from 0 to 5), indicating the similarity score, and cannot contain any other content.
+</text>
+</query>
+</body>

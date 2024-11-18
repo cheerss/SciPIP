@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE body [
+  <!ENTITY warning "Warning: Something bad happened... please refresh and try again.">
+]>
+<body>
+<query rank="0">
+<title>User Message</title>
+<text>
+Task Description:
+
+You are provided with the title, abstract, and introduction of a research paper. Your task is to generate a concise summary of what kind of problem does this paper aim to solve and what methods are proposed to address it. The summary should follow this format:
+The problem of [problem] can be addressed by [main idea/approach].
+
+Instructions:
+
+Title: Read the title to understand the general topic of the paper.
+Abstract: Read the abstract to get a concise summary of the research, including the problem addressed, the methods used, and the main findings.
+Introduction: Read the introduction to gain a deeper understanding of the background, significance, and specific problem the paper addresses, as well as the proposed approach or solution.
+Based on the provided information, generate a single sentence that captures the essence of the paper, following the format specified above.
+
+Your Turn:
+
+Given the following paper information:
+Title: {title}
+Abstract: {abstract}
+Introduction: {introduction}
+
+Output:
+The problem of [problem] can be addressed by [main idea/approach].
+</text>
+</query>
+<query rank="1">
+<title>User Message</title>
+<text>
+Please read the title, abstract, and introduction of the paper again, as well as the summary you provided. Complete the following two tasks:
+1.Briefly provide the two most critical motivations behind proposing these methods to address the problems. 
+2.Briefly provide the three most critical or innovative details of the paper that were not mentioned in your summary (It's best if these details are the new methods or techniques adopted in this paper).
+
+Output:
+Motivations:1.[motivation1]. 2.[motivation2]. Details:1.[detail1]. 2.[detail2]. 3.[detail3].
+</text>
+</query>
+</body>

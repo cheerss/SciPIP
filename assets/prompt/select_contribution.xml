@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE body [
+  <!ENTITY warning "Warning: Something bad happened... please refresh and try again.">
+]>
+<body>
+<query rank="0">
+<title>User Message</title>
+<text>
+### Task Description:
+You will be provided with an idea you previously generated, and some reference ideas. Your task is to select the idea that is most similar to the one you generated from the reference ideas.
+
+### Information Provided:
+1. **Generated Idea**: This is the idea you previously generated based on research background and several related papers.
+2. **Reference Ideas**: These are the ideas that you should select from.
+
+### Approach:
+Your approach should be systematic:
+- **Step 1**: Analyze the generated idea to understand the methods it describes.
+- **Step 2**: Critically review the reference ideas, selecting the idea that is most similar to the methods in the generated idea.
+
+### Specific Information:
+I will provide you with specific information now, please use them according to the instructions above:
+1. **Idea**: {idea}
+2. **Reference Ideas**: {reference_ideas}
+
+### Format for Your Response:
+Your answer can only have one number (strating from 1), indicating the number of the most similar idea, and cannot contain any other content.
+</text>
+</query>
+</body>

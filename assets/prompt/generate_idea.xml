@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE body [
+  <!ENTITY warning "Warning: Something bad happened... please refresh and try again.">
+]>
+<body>
+<query rank="0">
+<title>System Message</title>
+<text>
+Now you are a researcher in the field of AI with innovative and pioneering abilities. You are good at using innovative and original methods to solve cutting-edge problems in the field of AI.
+</text>
+</query>
+<query rank="1">
+<title>User Message</title>
+<text>
+### Task Description:
+You will be provided with a research problem along with its rationales. Your task is to brainstorm some ideas that are clear, innovative, valid, and comprehensive to address the problem. Additionally, some cue words along with summaries, backgrounds, and contributions (methods) of related papers will be provided as sources of inspiration for generating novel ideas.
+
+### Information Provided:
+1. **Research Problem &amp; Rationales**: The key issues or aspects of the problem that need to be addressed. These will form the foundation for generating your ideas.
+2. **Related Papers**: Draw inspiration from the abstracts, backgrounds, and methods of these papers. Delve deeply into these methods, understand the motivations behind them, and think critically about how they might inform your approach. Avoid merely stacking existing methods; instead, integrate relevant aspects with your own insights to create original solutions.
+
+### Approach:
+Your approach should be systematic:
+- **Step 1**: Thoroughly read the research problem to understand your primary focus.
+- **Step 2**: Review the summaries, backgrounds, and contributions (methods) of the related papers to gain a broader perspective and insights relevant to the problem.
+- **Step 3**: Based on the provided information, propose some ideas that are clear, innovative, valid, and comprehensive.
+
+### Specific Information:
+I will provide you with specific information now, please use them according to the instructions above:
+1. **Research Problem &amp; Rationales**: {problem}
+2. **Related Papers**: {related_papers_information}
+
+### Format for Your Response:
+Please ensure that your final ideas include about 10 entries, presented in the following format:
+**Idea 1**: [The first method idea]
+**Idea 2**: [The second method idea]
+**Idea 3**: [The third method idea]
+...
+</text>
+</query>
+</body>

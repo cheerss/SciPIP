@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE body [
+  <!ENTITY warning "Warning: Something bad happened... please refresh and try again.">
+]>
+<body>
+<query rank="0">
+<title>System Message</title>
+<text>
+Now you are an expert in extracting key entities from research contents. You are good at identifying the most important keywords or phrases that summarize the main topics or concepts discussed in the content.
+</text>
+</query>
+<query rank="1">
+<title>User Message</title>
+<text>
+### Task Description:
+You are an AI researcher tasked with extracting the key entities from a given research paper content. These entities should represent the most important keywords or phrases that summarize the main topics or concepts discussed in the content.
+
+### Information Provided:
+**Content**: Focus on this content, and extract entities that serve as concrete manifestations of the main themes and topics within it.
+
+### Approach:
+Your entity extraction should be systematic:
+- **Step 1**: Carefully read through the content to fully understand its main themes and topics.
+- **Step 2**: Identify and list key entities central to the content, ensuring each entity is relevant, meaningful, and accurately represents the content.
+
+### Entity Guidelines:
+- Each entity should be no longer than 5 words and contain at least 2 words.
+- The entities should be nouns or noun phrases.
+- The total number of entities should be less than or equal to {max_num}.
+
+### Examples:
+{examples}
+
+### Specific information:
+I will provide you with specific information now, please use them according to the instructions above:
+**Content**: {content}
+
+### Format for Your Response:
+Please just give me the entities and spilt them by ", ":
+&lt; entity 1 &gt;,&lt; entity 2 &gt;,...
+</text>
+<data>
+<trunk>
+<content>This paper presents a novel approach to automatic captioning of geo-tagged images by summarizing multiple webdocuments that contain information related to an image's location. The summarizer is biased by dependency pattern models towards sentences which contain features typically provided for different scene types such as those of churches, bridges, etc. Our results show that summaries biased by dependency pattern models lead to significantly higher ROUGE scores than both n-gram language models reported in previous work and also Wikipedia baseline summaries. Summaries generated using dependency patterns also lead to more readable summaries than those generated without dependency patterns.</content>
+<entities>dependency pattern models, automatic captioning</entities>
+</trunk>
+<trunk>
+<content>In this paper, we describe the 2015 iteration of the SemEval shared task on Sentiment Analysis in Twitter. This was the most popular sentiment analysis shared task to date with more than 40 teams participating in each of the last three years. This year's shared task competition consisted of five sentiment prediction subtasks. Two were reruns from previous years: (A) sentiment expressed by a phrase in the context of a tweet, and (B) overall sentiment of a tweet. We further included three new subtasks asking to predict (C) the sentiment towards a topic in a single tweet, (D) the overall sentiment towards a topic in a set of tweets, and (E) the degree of prior polarity of a phrase.</content>
+<entities>sentiment analysis, shared task</entities>
+</trunk>
+<trunk>
+<content>This paper presents two different tools which may be used as a support of speech recognition. The tool "transc" is the first one and it generates the phonetic transcription (pronunciation) of given utterance. It is based mainly on fixed rules which can be defined for Czech pronunciation but it can work also with specified list of exceptions which is defined on lexicon basis. It allows the usage of "transc" for unknown text with high probability of correct phonetic transcription generation. The second part is devoted to lexicon management tool "lexedit" which may be useful in the phase of generation of pronunciation lexicon for collected corpora. The presented tool allows editing of pronunciation, playing examples of pronunciation, comparison with reference lexicon, updating of reference lexicon, etc.</content>
+<entities>speech recognition, phonetic transcription, lexicon management</entities>
+</trunk>
+<trunk>
+<content>Previous research applying kernel methods to natural language parsing have focussed on proposing kernels over parse trees, which are hand-crafted based on domain knowledge and computational considerations. In this paper we propose a method for defining kernels in terms of a probabilistic model of parsing. This model is then trained, so that the parameters of the probabilistic model reflect the generalizations in the training data. The method we propose then uses these trained parameters to define a kernel for reranking parse trees. In experiments, we use a neural network based statistical parser as the probabilistic model, and use the resulting kernel with the Voted Perceptron algorithm to rerank the top 20 parses from the probabilistic model. This method achieves a significant improvement over the accuracy of the probabilistic model.</content>
+<entities>parse trees, probabilistic model, natural language parsing</entities>
+</trunk>
+</data>
+</query>
+</body>

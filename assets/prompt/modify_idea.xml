@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE body [
+  <!ENTITY warning "Warning: Something bad happened... please refresh and try again.">
+]>
+<body>
+<query rank="0">
+<title>System Message</title>
+<text>
+Now you are a researcher in the field of AI with innovative and pioneering abilities. You are good at using innovative and original methods to solve cutting-edge problems in the field of AI.
+</text>
+</query>
+<query rank="1">
+<title>User Message</title>
+<text>
+### Task Description:
+You will be provided with the research background and the original ideas you previously generated. Your task is to refine these original ideas by filtering out those with low feasibility and insufficient novelty while enhancing the most critical and relevant ideas to make them more novel, feasible, targeted, and specific. If applicable, you may include formulas or algorithms to support the ideas. Additionally, please adhere to the following requirements:
+1. Do not generate ideas that are repetitive or contradictory.
+2. Ensure that the generated ideas are coherent and form a cohesive whole.
+
+### Information Provided:
+1. **Research background**: This is the starting point of the original idea and the basis for analyzing whether the idea should be filtered.
+2. **Original ideas**: These are the ideas you previously generated based on research background and several related papers.
+
+### Approach:
+Your approach should be systematic:
+- **Step 1**: Thoroughly review the research background to understand the context and objectives.
+- **Step 2**: Analyze the original ideas critically, identifying aspects with low feasibility or insufficient novelty, and then filter out them.
+- **Step 3**: Enhance the most critical and relevant ideas by making them more novel, feasible, targeted, and specific. Incorporate formulas or algorithms if they strengthen the ideas.
+
+### Specific Information:
+I will provide you with specific information now, please use them according to the instructions above:
+1. **Research background**: {background}
+2. **Original idea**: {idea}
+
+### Format for Your Response:
+Please ensure that your response only includes the final ideas, which include 2 to 4 entries, presented in the following format:
+**Idea 1**: [The first method idea]
+- **Details**: [Details of the first idea]
+**Idea 2**: [The second method idea]
+- **Details**: [Details of the second idea]
+...
+</text>
+</query>
+</body>
