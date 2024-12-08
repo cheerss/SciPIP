@@ -24,15 +24,15 @@ SciPIP is a scientific paper idea generation tool powered by a large language mo
 ![SciPIP](./assets/pic/demo.png)
 
 
-🤗 Try it on the Hugging Face (Coming Soon... You can deploy it at your own computer now.)
+🤗 Try it on the Hugging Face: https://huggingface.co/spaces/lihuigu/SciPIP
 
 ## Updates
 
 - [x] Idea generation in a GUI enviroment (web app).
 - [x] Idea generation for the NLP and multimodal (partial) field.
-- [ ] Idea generation for the CV field.
+- [x] Idea generation for the CV field.
 - [ ] Idea generation for other fields.
-- [ ] Release the Huggingface demo.
+- [x] Release the Huggingface demo.
 
 ## Prerequisites
 
