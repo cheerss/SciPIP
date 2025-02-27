@@ -135,7 +135,7 @@ dependencies:
       - scikit-learn==1.5.2
       - scipy==1.14.1
       - selenium==4.25.0
-      - sentence-transformers==3.0.1
+      - sentence-transformers==3.1.0
       - shellingham==1.5.4
       - six==1.16.0
       - smart-open==6.4.0
@@ -164,3 +164,4 @@ dependencies:
       - zhipuai==2.1.5.20230904
       - streamlit==1.40.0
       - huggingface-hub==0.26.2
+      - einops==0.8.1  

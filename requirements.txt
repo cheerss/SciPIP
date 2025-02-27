@@ -109,7 +109,7 @@ safetensors==0.4.5
 scikit-learn==1.5.2
 scipy==1.14.1
 selenium==4.25.0
-sentence-transformers==3.0.1
+sentence-transformers==3.1.0
 setuptools==68.0.0
 shellingham==1.5.4
 six==1.16.0
@@ -154,3 +154,4 @@ wheel==0.44.0
 wrapt==1.16.0
 wsproto==1.2.0
 zhipuai==2.1.5.20230904
+einops==0.8.1

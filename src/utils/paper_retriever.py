@@ -110,7 +110,7 @@ class Retriever(object):
             self.embedding_postfix = ""
         elif self.config.DEFAULT.embedding == "BAAI/llm-embedder":
             self.embedding_postfix = "_llm_embedder"
-        elif self.config.DEFAULT.embedding == "jina-embeddings-v3":
+        elif self.config.DEFAULT.embedding == "jinaai/jina-embeddings-v3":
             self.embedding_postfix = "_jina_v3"
             if self.config.DEFAULT.embedding_database == "text-matching":
                 self.embedding_postfix += "_text_matching"

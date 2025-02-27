@@ -664,7 +664,7 @@ class PaperManager:
         postfix_set = {
             "sentence-transformers/all-MiniLM-L6-v2": "",
             "BAAI/llm-embedder": "_llm_embedder",
-            "jina-embeddings-v3": "_jina_v3"
+            "jina/jina-embeddings-v3": "_jina_v3"
         }
         postfix = postfix_set[self.config.DEFAULT.embedding]
         if "jina" in postfix:

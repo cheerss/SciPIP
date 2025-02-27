@@ -32,13 +32,15 @@ def check_embedding(repo_id):
                 "vocab.txt",
             ]
         elif repo_id in [
-            "jina-embeddings-v3",
+            "jinaai/jina-embeddings-v3",
         ]:
             files_to_download = [
                 "model.safetensors",
                 "modules.json",
                 "tokenizer.json",
                 "config_sentence_transformers.json",
+                "custom_st.py",
+                "special_tokens_map.json",
                 "tokenizer_config.json",
                 "1_Pooling/config.json",
                 "config.json",
