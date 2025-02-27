@@ -24,7 +24,7 @@ SciPIP is a scientific paper idea generation tool powered by a large language mo
 ![SciPIP](./assets/pic/demo.png)
 
 
-🤗 Try it on the Hugging Face: https://huggingface.co/spaces/lihuigu/SciPIP
+🤗 Try it on the Hugging Face: https://huggingface.co/spaces/lihuigu/SciPIP (The demo uses the old version code temporally and will be updated soon.)
 
 ## Updates
 
