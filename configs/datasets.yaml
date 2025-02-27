@@ -5,7 +5,7 @@ DEFAULT:
     log_dir: ./log
     # embedding: sentence-transformers/all-MiniLM-L6-v2
     # embedding: BAAI/llm-embedder
-    embedding: jina-embeddings-v3
+    embedding: jinaai/jina-embeddings-v3
     embedding_task: text-matching # ONLY FOR JINA_v3, retrieval.passage, text-matching, retrieval.query
     embedding_database: text-matching # ONLY FOR JINA_v3, retrieval.passage, text-matching, retrieval.query
 
