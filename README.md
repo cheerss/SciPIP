@@ -28,7 +28,7 @@ SciPIP is a scientific paper idea generation tool powered by a large language mo
 ## Updates
 
 - [x] Idea generation in a GUI enviroment (web app).
-- [x] Idea generation for the NLP and multimodal (partial) field.
+- [x] Idea generation for the NLP and multimodal field.
 - [x] Idea generation for the CV field.
 - [ ] Idea generation for other fields.
 - [x] Release the Huggingface demo.
@@ -51,11 +51,11 @@ The following enviroments are tested under Ubuntu 22.04 with python>=3.10.3.
    ## Install Neo4j database
    sudo apt install -y openjdk-17-jre # Install Neo4j required JDK
    # cd ~/Downloads # or /your/path/to/download/Neo4j
-   wget http://dist.neo4j.org/neo4j-community-5.20.0-unix.tar.gz
-   tar -xvf neo4j-community-5.20.0-unix.tar.gz
+   wget http://dist.neo4j.org/neo4j-community-5.25.1-unix.tar.gz
+   tar -xvf neo4j-community-5.25.1-unix.tar.gz
    
    ## Start Neo4j
-   cd ./neo4j-community-5.20.0
+   cd ./neo4j-community-5.25.1
    # Uncomment server.default_listen_address=0.0.0.0 in conf/neo4j.conf to visit Neo4j through a browser
    sed -i 's/# server.default_listen_address=0.0.0.0/server.default_listen_address=0.0.0.0/g' ./conf/neo4j.conf
    ./bin/neo4j start
@@ -80,17 +80,14 @@ The following enviroments are tested under Ubuntu 22.04 with python>=3.10.3.
    ```
 3. **Prepare the literature database**
    
-   1. Download the literature data from [this link](https://drive.google.com/file/d/1NZTDpxKo7bmxwXPI03dgikEemKGLkwne/view?usp=sharing) and save it to `assets/data/scipip_neo4j_clean_backup.json`.
-   2. Then, run the following command to load the literature into Neo4j database (It may 40-60 minutes):
-   ```
-   python src/utils/paper_client.py
+   1. Download the literature data from [google_drive](https://drive.google.com/file/d/1kZmJff8am-JGegZZQx0qxlC7o7YgBURg/view?usp=sharing) or [baidu disk](). Replace the `/your/path/neo4j-community-5.25.1/data` folder with our provided `data` folder, which contains literature of CV, NLP, ML, *etc.*
+   2. [Optional] Prepare the embedding model. Our algorithm uses **jina-embedding v3** and will automatically download it from Huggingface the first time the program is run. However, if you're concerned about potential download failures due to network issues, you can download it in advance and place it in the specified directory.
+   
+   ```bash
+   cd /root/path/of/SciPIP && mkdir -p assets/model/
+   git clone https://huggingface.co/jinaai/jina-embeddings-v3 assets/model
    ```
    
-4. **[Optional] Prepare the embedding model**. Our algorithm uses SentenceBERT and **will automatically download** it from Huggingface the first time the program is run. However, if you're concerned about potential download failures due to network issues, you can download it in advance and place it in the specified directory.
-   ```bash
-   cd /root/path/of/SciPIP && mkdir -p assets/model/sentence-transformers
-   git clone https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2 assets/model/sentence-transformers/all-MiniLM-L6-v2 assets/model/sentence-transformers
-   ```
 
 ## Run In a Browser (Recommended)
 
@@ -103,36 +100,20 @@ Then, visit `http://localhost:8501` in your browser with an interactive envirome
 
 ## Run In a Terminal
 
-**1. BackTracking of ACL 2024**
+**1. Generate new idea**
 
-```
-python src/generator.py backtracking --brainstorm-mode mode_c --use-cue-words True --use-inspiration True --num 1
-```
-
-Results dump in `assets/output_idea/output_backtracking_mode_c_cue_True_ins_True.json`.
-
-**2. Generate new idea**
-
-Input your backgound and cue words in `assets/data/test_background.json`
+Input your backgound in `assets/data/test_background.json`
 
 ```
 python src/generator.py new-idea --brainstorm-mode mode_c --use-inspiration True --num 2
 ```
 
-Results dump in `assets/output_idea/output_new_idea_mode_c_ins_True.json`.
+Results dump in `assets/output_idea/output-file.json`.
 
 ## Others
 
-### Retrieve Eval
-
-Generate retrieve eval log result in `./log`.
-
-```
-bash scripts/retriever_eval.sh
-```
-
 ### Database Construction
-SciPIP uses Neo4j as its database. You can directly import the provided data or add your own research papers.
+SciPIP uses Neo4j as its database. You can directly import the provided data or add your own research papers.ddddddsfasdfldsafkldsjfdkls
 ```
 wget https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
 pip install en_core_web_sm-3.7.1-py3-none-any.whl
