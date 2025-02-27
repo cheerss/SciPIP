@@ -80,7 +80,7 @@ The following enviroments are tested under Ubuntu 22.04 with python>=3.10.3.
    ```
 3. **Prepare the literature database**
    
-   1. Download the literature data from [google_drive](https://drive.google.com/file/d/1kZmJff8am-JGegZZQx0qxlC7o7YgBURg/view?usp=sharing) or [baidu disk](). Replace the `/your/path/neo4j-community-5.25.1/data` folder with our provided `data` folder, which contains literature of CV, NLP, ML, *etc.*
+   1. Download the literature data from [google_drive](https://drive.google.com/file/d/1kZmJff8am-JGegZZQx0qxlC7o7YgBURg/view?usp=sharing) or [baidu disk](https://pan.baidu.com/s/1S22Evi5ReL0MvahFoQ-ipA?pwd=scip). Replace the `/your/path/neo4j-community-5.25.1/data` folder with our provided `data` folder, which contains literature of CV, NLP, ML, *etc.*
    2. [Optional] Prepare the embedding model. Our algorithm uses **jina-embedding v3** and will automatically download it from Huggingface the first time the program is run. However, if you're concerned about potential download failures due to network issues, you can download it in advance and place it in the specified directory.
    
    ```bash
