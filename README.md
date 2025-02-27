@@ -33,6 +33,7 @@ SciPIP is a scientific paper idea generation tool powered by a large language mo
 - [x] Idea generation for the CV field.
 - [ ] Idea generation for other fields.
 - [x] Release the Huggingface demo.
+- [x] 🎉Support DeepSeek-v3, now.
 
 ## Prerequisites
 
