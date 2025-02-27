@@ -29,6 +29,8 @@ def extract_problem(problem, background):
 
 
 def extract_ideas(idea_str):
+    if idea_str is None:
+        return ""
     ideas = []
     for i in range(1, 100): # 100 is a magic number
         start_word = f"**Idea {i}"
@@ -407,8 +409,9 @@ def new_idea(
         for paper in related_paper:
             if not ("detail_method" in paper):
                 paper["detail_method"] = api_helper.generate_concise_method(paper["methodology"])
-                paper_client.insert_new_field(paper["hash_id"], "detail_method", paper["detail_method"])
-                logger.info(f"Add new field detail method to paper: {paper['hash_id']} succeed")
+                if isinstance(paper["detail_method"], str):
+                    paper_client.insert_new_field(paper["hash_id"], "detail_method", paper["detail_method"])
+                    logger.info(f"Add new field detail method to paper: {paper['hash_id']} succeed")
         logger.info("Generate detail methods for all related papers succeed")
 
         ### 3. 生成IDEA
