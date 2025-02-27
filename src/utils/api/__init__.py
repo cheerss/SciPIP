@@ -22,8 +22,10 @@ Creation Date : 2024-10-29
 
 Author : Frank Kang(frankkang@zju.edu.cn)
 """
+
 from .base_helper import HelperCompany
 from .openai_helper import OpenAIHelper  # noqa: F401, ensure autoregister
 from .zhipuai_helper import ZhipuAIHelper  # noqa: F401, ensure autoregister
+from .local_helper import LocalHelper  # noqa: F401, ensure autoregister
 
 __all__ = ["HelperCompany"]

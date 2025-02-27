@@ -17,6 +17,9 @@ from abc import ABCMeta
 from typing_extensions import Literal, override
 from ..base_company import BaseCompany
 from typing import Union
+import requests
+import json
+from requests.exceptions import RequestException
 
 
 class NotGiven:
@@ -109,6 +112,31 @@ class BaseHelper:
         self.base_url = base_url
         self.client = None
 
+    def apply_for_service(self, data_param, max_attempts=4):
+        attempt = 0
+        while attempt < max_attempts:
+            try:
+                # print(f"尝试 #{attempt + 1}")
+                r = requests.post(
+                    self.base_url + "/llm/generate",
+                    headers={"Content-Type": "application/json"},
+                    data=json.dumps(data_param),
+                )
+                # 检查请求是否成功
+                if r.status_code == 200:
+                    # print("服务请求成功。")
+                    response = r.json()["data"]["output"]
+                    return response  # 或者根据需要返回其他内容
+                else:
+                    print("服务请求失败，响应状态码：", r.status_code)
+            except RequestException as e:
+                print("请求发生错误：", e)
+
+            attempt += 1
+            if attempt == max_attempts:
+                print("达到最大尝试次数，服务请求失败。")
+                return None  # 或者根据你的情况抛出异常
+
     def create(
         self,
         *args,
@@ -124,7 +152,7 @@ class BaseHelper:
         extra_headers: None | NotGiven = None,
         extra_body: None | NotGiven = None,
         timeout: float | None | NotGiven = None,
-        **kwargs
+        **kwargs,
     ):
         """
         Creates a model response for the given chat conversation.
@@ -187,20 +215,44 @@ class BaseHelper:
 
             timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self.client.chat.completions.create(
-            *args,
-            model=self.model,
-            messages=messages,
-            stream=stream,
-            temperature=temperature,
-            top_p=top_p,
-            max_tokens=max_tokens,
-            seed=seed,
-            stop=stop,
-            tools=tools,
-            tool_choice=tool_choice,
-            extra_headers=extra_headers,
-            extra_body=extra_body,
-            timeout=timeout,
-            **kwargs
-        )
+        if self.model != "local":
+            return (
+                self.client.chat.completions.create(
+                    *args,
+                    model=self.model,
+                    messages=messages,
+                    stream=stream,
+                    temperature=temperature,
+                    top_p=top_p,
+                    max_tokens=max_tokens,
+                    seed=seed,
+                    stop=stop,
+                    tools=tools,
+                    tool_choice=tool_choice,
+                    extra_headers=extra_headers,
+                    extra_body=extra_body,
+                    timeout=timeout,
+                    **kwargs,
+                )
+                .choices[0]
+                .message.content
+            )
+        else:
+            default_system = "You are a helpful assistant."
+            input_content = ""
+            for message in messages:
+                if message["role"] == "system":
+                    default_system = message["content"]
+                else:
+                    input_content += message["content"]
+            data_param = {}
+            data_param["input"] = input_content
+            data_param["serviceParams"] = {"stream": False, "system": default_system}
+            data_param["ModelParams"] = {
+                "temperature": 0.8,
+                "presence_penalty": 2.0,
+                "frequency_penalty": 0.0,
+                "top_p": 0.8,
+            }
+            response = self.apply_for_service(data_param)
+            return response

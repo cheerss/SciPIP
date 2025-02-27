@@ -142,6 +142,19 @@ class PaperCrawling:
             print(e)
 
     def crawling(self, year, venue_name):
+        """
+        Args:
+        Returns:
+            paper_list (List of Dict):[
+                {
+                    "hash_id": hash_id, hash id of the paper
+                    "year": year, published year
+                    "venue_name": venue_name, venue name
+                    "title": title, paper title
+                    "pdf_url": pdf_url, paper url
+                }
+            ]
+        """
         paper_list = []
         paper_html_list = []
 

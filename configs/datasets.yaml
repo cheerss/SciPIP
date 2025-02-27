@@ -3,30 +3,40 @@ DEFAULT:
     ignore_paper_id_list: ./assets/data/ignore_paper_id_list.json
     log_level: "DEBUG"
     log_dir: ./log
-    embedding: ./assets/model/sentence-transformers/all-MiniLM-L6-v2
+    # embedding: sentence-transformers/all-MiniLM-L6-v2
+    # embedding: BAAI/llm-embedder
+    embedding: jina-embeddings-v3
+    embedding_task: text-matching # ONLY FOR JINA_v3, retrieval.passage, text-matching, retrieval.query
+    embedding_database: text-matching # ONLY FOR JINA_v3, retrieval.passage, text-matching, retrieval.query
+
 
 ARTICLE:
     summarizing_prompt: ./assets/prompt/summarizing.xml
 
 RETRIEVE:
     retriever_name: "SNKG"
+    # retriever_name: "SN"
+    SN_field_name: "background"
     use_cocite: True
     use_cluster_to_filter: True # 过滤器中使用聚类算法
-    cite_type: "all_cite_id_list"
+    cite_type: "cite_id_list"
     limit_num: 100  # 限制entity对应的paper数量
     sn_num_for_entity: 5 # SN搜索的文章数量，扩充entity
-    kg_jump_num: 1   # 跳数
-    kg_cover_num: 3  # entity重合数量
-    sum_paper_num: 100  # 最多检索到的paper数量
-    sn_retrieve_paper_num: 55 # 通过SN检索到的文章
+    kg_jump_num: 1   # 跳数，这个参数是不用的，就默认一次
+    kg_cover_num: 7  # entity重合数量，就是两个entity共同同时出现在了kg_cover_num篇文章中
+    sum_paper_num: 100  # 最多检索到的paper数量，指的是通过entity检索到的paper数量
+    sn_retrieve_paper_num: 100 # 通过SN检索到的文章
+    all_retrieve_paper_num: 10
     cocite_top_k: 1
     need_normalize: True
     alpha: 1
     beta: 0
     relation_name: "related" # "connect"
     top_p_list: [0.1, 0.2, 0.3, 0.4, 0.5]
-    top_k_list: [10, 20, 30, 40, 50]
-    s_bg: 0
-    s_contribution: 0.5
-    s_summary: 0.5
-    similarity_threshold: 0.55
+    top_k_list: [10, 20, 30, 40, 50, 60, 80, 100, 120, 150]
+    s_bg: 1.0
+    s_contribution: 0.0
+    s_summary: 0.0
+    s_abstract: 0.0
+    similarity_threshold: 0.95
+    # similarity_threshold: 0.55

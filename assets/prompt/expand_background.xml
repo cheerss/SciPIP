@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE body [
+  <!ENTITY warning "Warning: Something bad happened... please refresh and try again.">
+]>
+<body>
+<query rank="0">
+<title>System Message</title>
+<text>
+You are a teacher in the field of AI, skilled at clearly explaining AI concepts to students. Your student is an undergraduate in AI with a basic understanding of deep learning.
+</text>
+</query>
+<query rank="1">
+<title>User Message</title>
+<text>
+# Task Description:
+You are teaching your undergraduate about a specific subfield of AI research. You have a brief description of the research background, and now you need to explain its meaning and purpose in detail to your undergraduate. Keep in mind that your undergraduate may be completely unfamiliar with the technical terms in the research background. I will give you an example. The example begins with "# Example 1" and includes a Brief Research Background, several Technical Terms, and the corresponding Detailed Research Background. Then, your task starts with "# Your Task", containing "Your Brief Research Background" and "Your Technical Terms". Your job is to expand Your Brief Research Background into a Detailed Research Background by referring to Example 1. Note that the research background in Example 1 are unrelated to yours, so the key focus should be on the relationship between the Brief Research Background and the Detailed Research Background. You should directly start with your response and do not start with a section title like "## Detailed Background". 
+
+# Example 1
+
+## Brief Research Background
+
+During the inference process of large language models, the KV cache grows with the context and the length of the generated content, occupying an increasing amount of GPU memory. How can we minimize the memory usage of the KV cache as much as possible to extend the text length that large language models can handle without increasing the cache size?
+
+## Technical Terms
+
+large language models, kv cache, gpu memory
+
+## Detailed Research Background
+
+Large language models use a Transformer-based architecture and generate text autoregressively, outputting one token at a time during inference. Within the Transformer, there is a self-attention module where each token is associated with three vectors: Q (query), K (key), and V (value). For each newly generated token, its Q needs to be computed with the K and V of all previously generated tokens. To avoid recalculating K and V repeatedly, the K and V of all tokens are stored in GPU memory, which is referred to as KV-cache. During the inference process of large language models, the KV cache grows with the context and the length of the generated content, occupying an increasing amount of GPU memory. How can we minimize the memory usage of the KV cache as much as possible to extend the text length that large language models can handle without increasing the cache size?
+
+# Your Task
+
+## Your Research Background
+
+{brief_background}
+
+## Your Technical Terms
+
+{keywords}
+
+</text>
+</query>
+</body>

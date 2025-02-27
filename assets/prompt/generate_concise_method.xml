@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE body [
+  <!ENTITY warning "Warning: Something bad happened... please refresh and try again.">
+]>
+<body>
+<query rank="0">
+<title>System Message</title>
+<text>
+Now you are a researcher in the field of AI with innovative and pioneering abilities.
+</text>
+</query>
+<query rank="1">
+<title>User Message</title>
+<text>
+# Task Description:
+You are an AI researcher conducting studies in a specific domain. Someone has provided you with a methodology section, and your task is to transform it into another style. I will give you an example. The example begins with "# Example 1" and includes a Example Summarized Methods. Then, your task starts with "# Your Task", containing "Your Methodology Section". Your job is to transform Your Methodology Section into a Summarized Methods by referring to Example 1. Note that the ideas in Example 1 are unrelated to your idea, so the key focus should be on the style of Example Summarized Methods. You should directly start with your response and do not start with a section title like "## Your Summarized Methods".
+
+# Example 1
+
+## Example Summarized Methods
+
+Building on the concept of Parameter-Efficient Fine-Tuning (PEFT), which aims to adapt Large Language Models (LLMs) to specific tasks without the full computational cost of training all parameters, the following algorithm integrates a memory-efficient strategy enhanced through quantization and an auxiliary side network. This allows for efficient fine-tuning and inference on large models with reduced memory requirements and computational demands.
+
+1. **Quantization of LLM to 4-bit Precision:**
+   1. Utilize 4-bit quantization to reduce the memory footprint of the LLM's weights. Each floating-point parameter in the LLM is converted to a 4-bit representation for efficient memory utilization.
+   2. Begin with the conversion of 16-bit parameters to 4-bit using the relation:
+      \[
+      X_{{4bit}} = \text{{round}}\left(\frac{{M_{{4bit}}}}{{\text{{Absmax}}(X_{{16bit}})}} \cdot X_{{16bit}}\right)
+      \]
+      where \(M_{{4bit}}\) is the maximum value representable in 4 bits, ensuring quantization minimizes precision loss by managing outliers through block-wise separate quantization.
+
+2. **Side Network for Memory-Efficient Tuning:**
+   1. Implement a side network \(g\) with dimensions reduced by a factor \(r\) relative to the original model \(f\). The side network processes information more economically, storing less data and reducing computational load during training.
+   2. Define the hidden state transformation at the \(i\)-th layer as:
+      \[
+      h_{{gi}}^{{16bit}} = (1 - \beta_i) * \text{{downsample}}_i(h_{{fi}}^{{16bit}}) + \beta_i * h_{{gi-1}}^{{16bit}}
+      \]
+      where \(\beta_i\) is a learnable gating parameter and \(\text{{downsample}}_i\) reduces dimensionality.
+
+3. **Low-Memory Gradient Calculation:**
+   1. Perform backpropagation limited to the side network \(g\), excluding the calculation of gradients for the quantized weights in \)f\), leveraging the pre-trained knowledge while focusing computational resources on the task-specific adaptation.
+   2. The gradient computation is detached from the main LLM, avoiding the costly backpropagation through large transformer layers and focusing updates through efficient gradient paths within \(g\).
+
+4. **Combining Outputs for Inference:**
+   1. At inference, blend the outputs from the LLM and side network as a weighted sum:
+      \[
+      h_N^{{16bit}} = \alpha h_{{fN}}^{{16bit}} + (1-\alpha) h_{{gN}}^{{16bit}}
+      \]
+      where \(\alpha\) is a learnable parameter initialized to prioritize the pre-trained model influence gradually allowing task customization through tuning.
+
+5. **Optimized Training Procedure:**
+   1. Integrate efficient downsampling techniques, such as LoRA and Adapter models, reducing parameter size significantly without losing efficacy.
+   2. Maintain a 16-bit floating-point data type for computations in forward and backward passes to balance precision and performance, ensuring that the quantized network remains robust and generalizable.
+
+By synthesizing quantization with an auxiliary network, the algorithm achieves a robust parameter-efficient fine-tuning technique, significantly reducing memory overhead, improving inference speed, and maintaining high performance despite the minimal parameters being updated. This approach effectively supports large-scale models, facilitating application in environments with constrained computational resources.
+
+# Your Task
+
+## Your Methodology Section
+
+{methodology}
+
+## Your Summarized Methods
+
+</text>
+</query>
+</body>

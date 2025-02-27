@@ -159,5 +159,5 @@ class ConfigReader:
         """
         config = ConfigReader(file_, included).config
         for k, v in kwargs.items():
-            config[k] = v
+            config.get(k, {}).update(v)
         return config

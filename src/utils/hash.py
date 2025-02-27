@@ -12,18 +12,47 @@ ENV_CHECKED = False
 EMBEDDING_CHECKED = False
 
 
-def check_embedding():
+def check_embedding(repo_id):
+    print("=== check embedding model ===")
     global EMBEDDING_CHECKED
     if not EMBEDDING_CHECKED:
         # Define the repository and files to download
-        repo_id = "sentence-transformers/all-MiniLM-L6-v2"  # "BAAI/bge-small-en-v1.5"
         local_dir = f"./assets/model/{repo_id}"
-        files_to_download = [
-            "config.json",
-            "pytorch_model.bin",
-            "tokenizer_config.json",
-            "vocab.txt",
-        ]
+        if repo_id in [
+            "sentence-transformers/all-MiniLM-L6-v2",
+            "BAAI/bge-small-en-v1.5",
+            "BAAI/llm-embedder",
+        ]:
+            # repo_id = "sentence-transformers/all-MiniLM-L6-v2"
+            # repo_id = "BAAI/bge-small-en-v1.5"
+            files_to_download = [
+                "config.json",
+                "pytorch_model.bin",
+                "tokenizer_config.json",
+                "vocab.txt",
+            ]
+        elif repo_id in [
+            "jina-embeddings-v3",
+        ]:
+            files_to_download = [
+                "model.safetensors",
+                "modules.json",
+                "tokenizer.json",
+                "config_sentence_transformers.json",
+                "tokenizer_config.json",
+                "1_Pooling/config.json",
+                "config.json",
+            ]
+        elif repo_id in ["Alibaba-NLP/gte-base-en-v1.5"]:
+            files_to_download = [
+                "config.json",
+                "model.safetensors",
+                "modules.json",
+                "tokenizer.json",
+                "sentence_bert_config.json",
+                "tokenizer_config.json",
+                "vocab.txt",
+            ]
         # Download each file and save it to the /model/bge directory
         for file_name in files_to_download:
             if not os.path.exists(os.path.join(local_dir, file_name)):
@@ -47,10 +76,13 @@ def check_env():
             "NEO4J_PASSWD",
             "MODEL_NAME",
             "MODEL_TYPE",
-            "MODEL_API_KEY",
             "BASE_URL",
         ]
         for env_name in env_name_list:
+            if env_name not in os.environ or os.environ[env_name] == "":
+                raise ValueError(f"{env_name} is not set...")
+        if os.environ["MODEL_TYPE"] != "Local":
+            env_name = "MODEL_API_KEY"
             if env_name not in os.environ or os.environ[env_name] == "":
                 raise ValueError(f"{env_name} is not set...")
         ENV_CHECKED = True
@@ -61,16 +93,23 @@ class EmbeddingModel:
 
     def __new__(cls, config):
         if cls._instance is None:
+            local_dir = f"./assets/model/{config.DEFAULT.embedding}"
             cls._instance = super(EmbeddingModel, cls).__new__(cls)
             device = "cuda" if torch.cuda.is_available() else "cpu"
             cls._instance.embedding_model = SentenceTransformer(
-                model_name_or_path=get_dir(config.DEFAULT.embedding),
+                model_name_or_path=get_dir(local_dir),
                 device=device,
+                trust_remote_code=True,
             )
+            if "jina-embeddings-v3" in config.DEFAULT.embedding:
+                cls._instance.embedding_model[0].default_task = config.DEFAULT.embedding_task
             print(f"==== using device {device} ====")
         return cls._instance
 
+
 def get_embedding_model(config):
+    print("=== get embedding model ===")
+    check_embedding(config.DEFAULT.embedding)
     return EmbeddingModel(config).embedding_model
 
 

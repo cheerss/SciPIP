@@ -40,7 +40,7 @@ def generate_mainpage():
         st.header("Resources")
         st.markdown("Our paper: [https://arxiv.org/abs/2410.23166](https://arxiv.org/abs/2410.23166)")
         st.markdown("Our github repository: [https://github.com/cheerss/SciPIP](https://github.com/cheerss/SciPIP)")
-        st.markdown("Our Huggingface demo: Coming soon...")
+        st.markdown("Our Huggingface demo: [https://huggingface.co/spaces/lihuigu/SciPIP](https://huggingface.co/spaces/lihuigu/SciPIP)")
         # st.page_link("https://arxiv.org/abs/2410.23166", label="Our paper: https://arxiv.org/abs/2410.23166", icon=None)
         # st.page_link("https://github.com/cheerss/SciPIP", label="Our github repository: https://github.com/cheerss/SciPIP", icon=None)
 
@@ -71,7 +71,7 @@ def generate_mainpage():
         st.header("相关资源")
         st.markdown("论文: [https://arxiv.org/abs/2410.23166](https://arxiv.org/abs/2410.23166)")
         st.markdown("Github仓库: [https://github.com/cheerss/SciPIP](https://github.com/cheerss/SciPIP)")
-        st.markdown("Huggingface演示: 敬请期待...")
+        st.markdown("Huggingface演示: [https://huggingface.co/spaces/lihuigu/SciPIP](https://huggingface.co/spaces/lihuigu/SciPIP)")
         # st.page_link("https://arxiv.org/abs/2410.23166", label="Our paper: https://arxiv.org/abs/2410.23166", icon=None)
         # st.page_link("https://github.com/cheerss/SciPIP", label="Our github repository: https://github.com/cheerss/SciPIP", icon=None)
 

@@ -11,9 +11,9 @@ def get_sidebar_supported_fields():
     st.sidebar.caption(_("The supported fields are temporarily limited because we only collect literature "
                "from ICML, ICLR, NeurIPS, ACL, and EMNLP. Support for other fields are in progress."))
     st.sidebar.checkbox(_("Natural Language Processing (NLP)"), value=True, disabled=True)
-    st.sidebar.checkbox(_("Computer Vision (CV)"), value=False, disabled=True)
+    st.sidebar.checkbox(_("Computer Vision (CV)"), value=True, disabled=True)
 
-    st.sidebar.checkbox(_("[Partial] Multimodal"), value=True, disabled=True)
+    st.sidebar.checkbox(_("Multimodal"), value=True, disabled=True)
     st.sidebar.checkbox(_("Incoming Other Fields"), value=False, disabled=True)
 
 def get_help_us_improve():

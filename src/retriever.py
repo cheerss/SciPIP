@@ -22,7 +22,10 @@ def main(ctx):
     print("Mode:", ctx.invoked_subcommand)
 
 
-@main.command()
+@main.command(context_settings=dict(
+    ignore_unknown_options=True,
+    allow_extra_args=True,
+))
 @click.option(
     "-c",
     "--config-path",
@@ -38,12 +41,24 @@ def main(ctx):
     required=True,
     help="Dataset configuration file in YAML",
 )
-def retrieve(
-    config_path, ids_path, **kwargs
-):
-    check_env()
-    check_embedding()
+@click.pass_context
+def retrieve(ctx,
+    config_path, ids_path
+): 
+    initial_kwargs={ctx.args[i][2:]: ctx.args[i+1] for i in range(0, len(ctx.args), 2)}
+    kwargs = {"RETRIEVE": {}, "DEFAULT": {}}
+    for k, v in initial_kwargs.items():
+        if "num" in k:
+            kwargs["RETRIEVE"][k] = int(v)
+        elif "s_" in k:
+            kwargs["RETRIEVE"][k] = float(v)
+        elif "use_cocite" in k:
+            kwargs["RETRIEVE"][k] = bool(int(v))
+        else:
+            kwargs["RETRIEVE"][k] = v
     config = ConfigReader.load(config_path, **kwargs)
+    check_embedding(config.DEFAULT.embedding)
+    check_env()
     log_dir = config.DEFAULT.log_dir
     retriever_name = config.RETRIEVE.retriever_name
     cluster_to_filter = config.RETRIEVE.use_cluster_to_filter
@@ -82,8 +97,8 @@ def retrieve(
         logger.info("\nbegin generate paper hash id {}".format(paper["hash_id"]))
         # 1. Get Background
         paper = paper_client.get_paper_by_id(paper["hash_id"])
-        if "motivation" in paper.keys():
-            bg = paper["motivation"]
+        if "background" in paper.keys():
+            bg = paper["background"]
         else:
             logger.error(f"paper hash_id {paper['hash_id']} doesn't have background...")
             continue

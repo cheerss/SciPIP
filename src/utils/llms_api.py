@@ -49,7 +49,10 @@ class APIHelper(object):
     def get_helper(self):
         MODEL_TYPE = os.environ["MODEL_TYPE"]
         MODEL_NAME = os.environ["MODEL_NAME"]
-        MODEL_API_KEY = os.environ["MODEL_API_KEY"]
+        if MODEL_NAME != "local":
+            MODEL_API_KEY = os.environ["MODEL_API_KEY"]
+        else:
+            MODEL_API_KEY = ""
         BASE_URL = os.environ["BASE_URL"]
         return HelperCompany.get()[MODEL_TYPE](
             MODEL_API_KEY, MODEL_NAME, BASE_URL, timeout=None
@@ -59,13 +62,15 @@ class APIHelper(object):
         pass
 
     def __call__(self, title: str, abstract: str, introduction: str) -> dict:
-        if os.environ["MODEL_NAME"] not in [
-            "glm4",
-            "glm4-air",
-            "qwen-max",
-            "qwen-plus",
-        ]:
-            raise ValueError(f"Check model name...")
+        # if os.environ["MODEL_NAME"] not in [
+        #     "glm4",
+        #     "glm4-air",
+        #     "qwen-max",
+        #     "qwen-plus",
+        #     "gpt-4o-mini",
+        #     "local",
+        # ]:
+        #     raise ValueError(f"Check model name...")
 
         if title is None or abstract is None or introduction is None:
             return None
@@ -78,13 +83,13 @@ class APIHelper(object):
             response1 = self.generator.create(
                 messages=message,
             )
-            summary = clean_text(response1.choices[0].message.content)
+            summary = clean_text(response1)
             message.append({"role": "assistant", "content": summary})
             message.append(self.prompt.queries[1][0]())
             response2 = self.generator.create(
                 messages=message,
             )
-            detail = response2.choices[0].message.content
+            detail = response2
             motivation = clean_text(detail.split(TAG_moti)[1].split(TAG_contr)[0])
             contribution = clean_text(detail.split(TAG_contr)[1])
             result = {
@@ -96,6 +101,25 @@ class APIHelper(object):
             traceback.print_exc()
             return None
         return result
+
+    def generate_concise_method(self, methodology: str):
+        prompt = get_prompt()
+        if methodology is None:
+            return None
+        try:
+            message = [
+                prompt[0][0](),
+                prompt[1][0](
+                    methodology=methodology
+                ),
+            ]
+            detail_method = self.generator.create(
+                messages=message,
+            )
+        except Exception:
+            traceback.print_exc()
+            return None
+        return detail_method
 
     def generate_entity_list(self, abstract: str, max_num: int = 5) -> list:
         prompt = get_prompt()
@@ -116,7 +140,7 @@ class APIHelper(object):
             response = self.generator.create(
                 messages=message,
             )
-            entities = response.choices[0].message.content
+            entities = response
             entity_list = entities.strip().split(", ")
             clean_entity_list = []
             for entity in entity_list:
@@ -151,13 +175,53 @@ class APIHelper(object):
             response_brainstorming = self.generator.create(
                 messages=message,
             )
-            brainstorming_ideas = response_brainstorming.choices[0].message.content
+            brainstorming_ideas = response_brainstorming
 
         except Exception:
             traceback.print_exc()
             return None
 
         return brainstorming_ideas
+    
+    def expand_idea(self, background: str, idea: str) -> str:
+        prompt = get_prompt()
+
+        if background is None:
+            print("Input background is empty ...")
+            return None
+        try:
+            # Initial brainstorming to generate raw ideas
+            message = [prompt[0][0](), prompt[1][0](background=background, brief_idea=idea)]
+            # Call the API to generate brainstorming ideas
+            detail_ideas = self.generator.create(
+                messages=message,
+            )
+
+        except Exception:
+            traceback.print_exc()
+            return None
+
+        return detail_ideas
+
+    def expand_background(self, brief_background: str, keywords: str) -> str:
+        prompt = get_prompt()
+
+        if brief_background is None:
+            print("Input brief background is empty ...")
+            return None
+        try:
+            # Initial brainstorming to generate raw ideas
+            message = [prompt[0][0](), prompt[1][0](brief_background=brief_background, keywords=keywords)]
+            # Call the API to generate brainstorming ideas
+            detail_background= self.generator.create(
+                messages=message,
+            )
+
+        except Exception:
+            traceback.print_exc()
+            return None
+
+        return detail_background
 
     def generate_problem(self, background: str, related_papers: list[dict]):
         prompt = get_prompt()
@@ -178,7 +242,7 @@ class APIHelper(object):
             response = self.generator.create(
                 messages=message,
             )
-            problem = response.choices[0].message.content
+            problem = response
         except Exception:
             traceback.print_exc()
             return None
@@ -207,7 +271,7 @@ class APIHelper(object):
             response = self.generator.create(
                 messages=message,
             )
-            problem = response.choices[0].message.content
+            problem = response
         except Exception:
             traceback.print_exc()
             return None
@@ -228,7 +292,28 @@ class APIHelper(object):
             response = self.generator.create(
                 messages=message,
             )
-            inspiration = response.choices[0].message.content
+            inspiration = response
+        except Exception:
+            traceback.print_exc()
+            return None
+        return inspiration
+    
+
+    def generate_inspiration_with_detail_method(self, background: str, detail_method: str):
+        prompt = get_prompt()
+        if background is None or detail_method is None:
+            return None
+        try:
+            message = [
+                prompt[0][0](),
+                prompt[1][0](
+                    background=background, detail_method=detail_method
+                ),
+            ]
+            response = self.generator.create(
+                messages=message,
+            )
+            inspiration = response
         except Exception:
             traceback.print_exc()
             return None
@@ -254,7 +339,7 @@ class APIHelper(object):
             response = self.generator.create(
                 messages=message,
             )
-            inspiration = response.choices[0].message.content
+            inspiration = response
         except Exception:
             traceback.print_exc()
             return None
@@ -282,7 +367,7 @@ class APIHelper(object):
             response = self.generator.create(
                 messages=message,
             )
-            idea = response.choices[0].message.content
+            idea = response
         except Exception:
             traceback.print_exc()
             return None
@@ -314,16 +399,16 @@ class APIHelper(object):
             response = self.generator.create(
                 messages=message,
             )
-            idea = response.choices[0].message.content
+            idea = response
         except Exception:
             traceback.print_exc()
             return None
         return idea
 
-    def generate_idea_by_inspiration(self, problem: str, inspirations: list[str]):
+    def generate_idea_by_inspiration(self, background: str, inspirations: list[str]):
         prompt = get_prompt()
 
-        if problem is None or inspirations is None:
+        if background is None or inspirations is None:
             return None
         try:
             inspirations_text = "".join(
@@ -335,12 +420,12 @@ class APIHelper(object):
 
             message = [
                 prompt[0][0](),
-                prompt[1][0](problem=problem, inspirations_text=inspirations_text),
+                prompt[1][0](background=background, inspirations=inspirations_text),
             ]
             response = self.generator.create(
                 messages=message,
             )
-            idea = response.choices[0].message.content
+            idea = response
         except Exception:
             traceback.print_exc()
             return None
@@ -372,7 +457,7 @@ class APIHelper(object):
             response = self.generator.create(
                 messages=message,
             )
-            idea = response.choices[0].message.content
+            idea = response
         except Exception:
             traceback.print_exc()
             return None
@@ -391,7 +476,7 @@ class APIHelper(object):
             response = self.generator.create(
                 messages=message,
             )
-            idea = response.choices[0].message.content
+            idea = response
         except Exception:
             traceback.print_exc()
             return None
@@ -413,7 +498,7 @@ class APIHelper(object):
             response = self.generator.create(
                 messages=message,
             )
-            idea_filtered = response.choices[0].message.content
+            idea_filtered = response
         except Exception:
             traceback.print_exc()
             return None
@@ -435,7 +520,7 @@ class APIHelper(object):
             response = self.generator.create(
                 messages=message,
             )
-            idea_modified = response.choices[0].message.content
+            idea_modified = response
         except Exception:
             traceback.print_exc()
             return None
@@ -454,7 +539,7 @@ class APIHelper(object):
             response = self.generator.create(
                 messages=message,
             )
-            ground_truth = response.choices[0].message.content
+            ground_truth = response
         except Exception:
             traceback.print_exc()
         return ground_truth
@@ -469,7 +554,7 @@ class APIHelper(object):
             response = self.generator.create(
                 messages=message,
             )
-            idea_norm = response.choices[0].message.content
+            idea_norm = response
         except Exception:
             traceback.print_exc()
             return None
@@ -492,7 +577,7 @@ class APIHelper(object):
                 messages=message,
                 max_tokens=10,
             )
-            index = response.choices[0].message.content
+            index = response
         except Exception:
             traceback.print_exc()
             return None
@@ -509,7 +594,7 @@ class APIHelper(object):
                 messages=message,
                 max_tokens=10,
             )
-            score = response.choices[0].message.content
+            score = response
         except Exception:
             traceback.print_exc()
             return None
@@ -548,7 +633,7 @@ class APIHelper(object):
                 stop=None,
                 seed=0,
             )
-            content = response.choices[0].message.content
+            content = response
             new_msg_history = new_msg_history + [
                 {"role": "assistant", "content": content}
             ]
@@ -577,7 +662,7 @@ class APIHelper(object):
             response = self.generator.create(
                 messages=message,
             )
-            result = response.choices[0].message.content
+            result = response
         except Exception:
             traceback.print_exc()
             return None
@@ -601,7 +686,7 @@ class APIHelper(object):
             response = self.generator.create(
                 messages=message,
             )
-            result = response.choices[0].message.content
+            result = response
         except Exception:
             traceback.print_exc()
             return None
@@ -625,7 +710,7 @@ class APIHelper(object):
             response = self.generator.create(
                 messages=message,
             )
-            result = response.choices[0].message.content
+            result = response
         except Exception:
             traceback.print_exc()
             return None
@@ -649,7 +734,7 @@ class APIHelper(object):
             response = self.generator.create(
                 messages=message,
             )
-            result = response.choices[0].message.content
+            result = response
         except Exception:
             traceback.print_exc()
             return None
@@ -673,7 +758,7 @@ class APIHelper(object):
             response = self.generator.create(
                 messages=message,
             )
-            result = response.choices[0].message.content
+            result = response
         except Exception:
             traceback.print_exc()
             return None

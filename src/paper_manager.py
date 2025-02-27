@@ -22,6 +22,12 @@ unicode_pattern = r"\u00c0-\u00ff\u0100-\u017f\u0180-\u024f\u4e00-\u9fff\u3040-\
 
 
 def find_methodology(article_dict):
+    """For an article dict (representing an article), return the methodology part
+    Args:
+        article_dict
+    Returns:
+        methodology: str
+    """
     def find_section_index(keywords):
         for i, section in enumerate(article_dict["sections"], 1):
             heading = section["heading"].lower()
@@ -70,10 +76,14 @@ def find_methodology(article_dict):
 
 
 def count_sb_pairs(text):
+    """Find the number of square brackets (possible citations)
+    """
     return len(re.findall(r"\[.*?\]", text))
 
 
 def count_rb_pairs(text):
+    """Find the number of round brackets (possible citations)
+    """
     return len(re.findall(r"\(.*?\)", text))
 
 
@@ -85,17 +95,18 @@ def find_cite_paper(introduction, methodology, references):
     text = introduction + methodology
     rb_count = count_rb_pairs(introduction)
     sb_count = count_sb_pairs(introduction)
-    pattern = (
-        r"\b[A-Z"
-        + unicode_pattern
-        + r"][a-zA-Z"
-        + unicode_pattern
-        + r"]+(?: and [A-Z"
-        + unicode_pattern
-        + r"][a-zA-Z"
-        + unicode_pattern
-        + r"]+)?(?: et al\.)?, \d{4}[a-z]?\b"
-    )
+    ## Seems redudant, remove repeated definition of pattern
+    # pattern = (
+    #     r"\b[A-Z"
+    #     + unicode_pattern
+    #     + r"][a-zA-Z"
+    #     + unicode_pattern
+    #     + r"]+(?: and [A-Z"
+    #     + unicode_pattern
+    #     + r"][a-zA-Z"
+    #     + unicode_pattern
+    #     + r"]+)?(?: et al\.)?, \d{4}[a-z]?\b"
+    # )
     pattern = (
         r"\b[A-Z"
         + unicode_pattern
@@ -199,11 +210,22 @@ class PaperManager:
             self.paper_client.create_vector_index()
 
     def clean_entity(self, entity):
+        """The extracted entities may be noisy, remove all noisy characters
+        Args:
+            entity (str): an entity
+        Returns:
+            cleaned_entity (str): entity after cleaning
+        """
         if entity is None:
             return None
+        # remove all () and their contents
         cleaned_entity = re.sub(r"\([^)]*\)", "", entity)
+        # remove non-word characters (e.g., punctuations)
         cleaned_entity = re.sub(r"[^\w\s]", "", cleaned_entity)
+        # replace _ as a whitespace
         cleaned_entity = re.sub(r"_", " ", cleaned_entity)
+        # remove multiple continuous blanks, remove leading and trailing spaces 
+        # (\s means blank characters)
         cleaned_entity = re.sub(r"\s+", " ", cleaned_entity).strip()
         return cleaned_entity
 
@@ -347,6 +369,8 @@ class PaperManager:
         need_get_entities=False,
         need_ground_truth=False,
     ):
+        """Parse a paper, dump the result into a json file
+        """
         if paper["pdf_url"] in self.ignore_paper_pdf_url:
             logger.warning(
                 "hash_id: {}, pdf_url: {} ignore".format(
@@ -389,10 +413,8 @@ class PaperManager:
                     )
 
         if need_summary:
-            print(paper.keys())
             if not self.check_parse(paper):
                 logger.error(f"paper {paper['hash_id']} need parse first...")
-
             result = self.api_helper(
                 paper["title"], paper["abstract"], paper["introduction"]
             )
@@ -513,6 +535,8 @@ class PaperManager:
         need_get_entities=False,
         need_ground_truth=False,
     ):
+        """Parse a paper and dump into the json file
+        """
         result = []
         if self.year != "all":
             logger.info(
@@ -628,9 +652,50 @@ class PaperManager:
 
     def insert_embedding(self, hash_id=None):
         self.paper_client.add_paper_abstract_embedding(self.embedding_model, hash_id)
-        # self.client.add_paper_bg_embedding(self.embedding_model, hash_id)
-        # self.client.add_paper_contribution_embedding(self.embedding_model, hash_id)
-        # self.client.add_paper_summary_embedding(self.embedding_model, hash_id)
+        # self.paper_client.add_paper_bg_embedding(self.embedding_model, hash_id)
+        # self.paper_client.add_paper_contribution_embedding(
+        #     self.embedding_model, hash_id
+        # )
+        # self.paper_client.add_paper_summary_embedding(self.embedding_model, hash_id)
+
+    def add_new_embedding(self, hash_id=None, to="all"):
+        """add new embeddings for abstract, background, contribution, and summary
+        """
+        postfix_set = {
+            "sentence-transformers/all-MiniLM-L6-v2": "",
+            "BAAI/llm-embedder": "_llm_embedder",
+            "jina-embeddings-v3": "_jina_v3"
+        }
+        postfix = postfix_set[self.config.DEFAULT.embedding]
+        if "jina" in postfix:
+            if self.config.DEFAULT.embedding_task == "text-matching":
+                postfix += "_text_matching"
+            elif self.config.DEFAULT.embedding_task == "retrieval.query":
+                postfix += "_query"
+            elif self.config.DEFAULT.embedding_task == "retrieval.passage":
+                postfix += "_passage"
+            else:
+                assert False
+        if to == "all" or to == "abstract":
+            self.paper_client.update_paper_embedding(
+                self.embedding_model, hash_id,
+                name="abstract", postfix=postfix
+            )
+        if to == "all" or to == "background":
+            self.paper_client.update_paper_embedding(
+                self.embedding_model, hash_id,
+                name="background", postfix=postfix
+            )
+        if to == "all" or to == "contribution":
+            self.paper_client.update_paper_embedding(
+                self.embedding_model, hash_id,
+                name="contribution", postfix=postfix
+            )
+        if to == "all" or to == "summary":
+            self.paper_client.update_paper_embedding(
+                self.embedding_model, hash_id,
+                name="summary", postfix=postfix
+            )
 
     def cosine_similarity_search(self, data_type, context, k=1):
         """
@@ -641,6 +706,12 @@ class PaperManager:
         return result
 
     def generate_paper_list(self):
+        """Dump paper list into a json file, the json is saved at "folder_path"
+        Args:
+            None
+        Return:
+            None
+        """
         folder_path = f"./assets/paper/{self.venue_name}"
         if not os.path.exists(folder_path):
             os.makedirs(folder_path)
@@ -721,6 +792,14 @@ def main(ctx):
     help="The LLMS API aliases used for generation. When used, it will invalidate --llms-api",
 )
 def crawling(config_path, year, venue_name, **kwargs):
+    """Download paper list in to a json file
+    Args:
+        config_path (str):
+        year (int): the paper's publication data
+        venue_name (str): CVPR, etc.
+    Resturns:
+        None
+    """
     # Configuration
     config = ConfigReader.load(config_path, **kwargs)
     pm = PaperManager(config, venue_name, year)
@@ -772,6 +851,9 @@ def crawling(config_path, year, venue_name, **kwargs):
     help="The LLMS API aliases used for generation. When used, it will invalidate --llms-api",
 )
 def update(config_path, year, venue_name, **kwargs):
+    """Read paper lists from assets/paper directory, insert them into database,
+    including downloading, parsing, etc., but not embedding
+    """
     # Configuration
     config = ConfigReader.load(config_path, **kwargs)
     pm = PaperManager(config, venue_name, year)
@@ -831,16 +913,18 @@ def update(config_path, year, venue_name, **kwargs):
     help="Dataset configuration file in YAML",
 )
 def local(config_path, year, venue_name, output, **kwargs):
+    """Parse papers and dump them into json files
+    """
     # Configuration
     output_path = output.name
     if not os.path.exists(os.path.dirname(output_path)):
         os.makedirs(os.path.dirname(output_path))
     config = ConfigReader.load(config_path, output_path=output_path, **kwargs)
     pm = PaperManager(config, venue_name, year)
+    print("###")
     pm.update_paper_from_json_to_json(
-        need_download=True, need_parse=True, need_summary=True, need_ground_truth=True
+        need_download=True, need_parse=True, need_summary=True
     )
-
 
 @main.command()
 @click.option(
@@ -852,9 +936,92 @@ def local(config_path, year, venue_name, output, **kwargs):
     help="Dataset configuration file in YAML",
 )
 def embedding(config_path):
+    """Insert embedding for papers in the database
+    """
     # Configuration
     config = ConfigReader.load(config_path)
     PaperManager(config).insert_embedding()
+
+@main.command()
+@click.option(
+    "-c",
+    "--config-path",
+    default=get_dir("./configs/datasets.yaml"),
+    type=click.File(),
+    required=True,
+    help="Dataset configuration file in YAML",
+)
+def add_new_embedding(config_path):
+    """Insert another new embedding for papers in the database
+    """
+    # Configuration
+    config = ConfigReader.load(config_path)
+    PaperManager(config).add_new_embedding(to="all")
+
+@main.command()
+@click.option(
+    "-c",
+    "--config-path",
+    default=get_dir("./configs/datasets.yaml"),
+    type=click.File(),
+    required=True,
+    help="Dataset configuration file in YAML",
+)
+@click.option(
+    "--llms-api",
+    default=None,
+    type=str,
+    required=False,
+    help="The LLMS API alias used. If you do not have separate APIs for summarization and generation, you can use this unified setting. This option is ignored when setting the API to be used by summarization and generation separately",
+)
+@click.option(
+    "--sum-api",
+    default=None,
+    type=str,
+    required=False,
+    help="The LLMS API aliases used for summarization. When used, it will invalidate --llms-api",
+)
+@click.option(
+    "--gen-api",
+    default=None,
+    type=str,
+    required=False,
+    help="The LLMS API aliases used for generation. When used, it will invalidate --llms-api",
+)
+@click.option(
+    "--year",
+    default="2013",
+    type=str,
+    required=True,
+    help="Venue year",
+)
+@click.option(
+    "--venue-name",
+    default="acl",
+    type=str,
+    required=True,
+    help="Venue name",
+)
+@click.option(
+    "-o",
+    "--output",
+    default=get_dir("./output/out.json"),
+    type=click.File("wb"),
+    required=True,
+    help="Dataset configuration file in YAML",
+)
+def parse_papers_to_json(config_path, venue_name, year, output, **kwargs):
+    """Read json files and download papers, then parse them and dump into jsons
+    """
+    # Configuration
+    output_path = output.name
+    if not os.path.exists(os.path.dirname(output_path)):
+        os.makedirs(os.path.dirname(output_path))
+    config = ConfigReader.load(config_path, output_path=output_path, **kwargs)
+    pm = PaperManager(config, venue_name=venue_name, year=year)
+    pm.update_paper_from_json_to_json(
+        need_download=True, need_parse=True, need_summary=True
+    )
 
 
 if __name__ == "__main__":
